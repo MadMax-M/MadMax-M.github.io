@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Trisha!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .center-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      font-size: 3rem;
+      font-weight: bold;
+      color: #d63384;
+      text-shadow: 2px 2px #fff;
+      animation: popIn 2s ease-out forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .floating-text {
+      position: absolute;
+      font-size: 1.2rem;
+      color: #cc007a;
+      opacity: 0.7;
+      animation: float 15s linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.7;
+      }
+      to {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="center-message">Happy Birthday Trisha!</div>
+
+  <script>
+    const compliments = [
+      "You are beautiful",
+      "You are awesome",
+      "You are the Best",
+      "You are courageous",
+      "You are brave",
+      "You are intelligent",
+      "You are a calculator"
+    ];
+
+    const colors = ["#cc007a", "#ff3399", "#ff66cc", "#ff99cc"];
+
+    for (let i = 0; i < 40; i++) {
+      const text = document.createElement("div");
+      text.className = "floating-text";
+      text.innerText = compliments[Math.floor(Math.random() * compliments.length)];
+      text.style.left = Math.random() * 100 + "vw";
+      text.style.top = Math.random() * 100 + "vh";
+      text.style.animationDuration = 10 + Math.random() * 10 + "s";
+      text.style.color = colors[Math.floor(Math.random() * colors.length)];
+      text.style.fontSize = 1 + Math.random() * 1.5 + "rem";
+      document.body.appendChild(text);
+    }
+  </script>
+</body>
+</html>
