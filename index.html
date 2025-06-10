@@ -1,25 +1,351 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Challenge: Links you hate</title>
-
-        <style>
-        	body{
-        		background: #41AAEC;
-        	}
-        </style>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTERPOL Case File: [FRIEND'S NAME] | ID# BDAY-2025-06-11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Playfair+Display:wght@400;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== OFFICIAL GOVERNMENT STYLING ===== */
+        :root {
+            --gov-blue: #002366;
+            --gov-red: #cc0000;
+            --gov-gray: #333333;
+            --file-tan: #f5e6c8;
+        }
         
-        <h1>Links I Hate</h1>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: #f0f0f0;
+            color: var(--gov-gray);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
         
-        <ul>
-            <li><a target="_blank" href = "https://www.youtube.com/"> youtube</a></li>
-            <li><a target="_blank" href = "https://www.facebook.com/?ref=tn_tnmn">facebook</a></li>
-            <li><a target="_blank" href = "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjzjrWIrsroAhXJb30KHYMZDOUQPAgH">google</a></li>
-        </ul>
-        <a target="_blank" href = "https://www.khanacademy.org/"> <img src="https://www.kasandbox.org/programming-images/cute/Heart.png"></a>
+        .header-strip {
+            background-color: var(--gov-blue);
+            color: white;
+            padding: 5px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+            border-bottom: 2px solid var(--gov-red);
+        }
         
-    </body>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        
+        /* ===== CASE FILE HEADER ===== */
+        .case-header {
+            border-bottom: 3px double var(--gov-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .case-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gov-blue);
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        
+        .case-id {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--gov-red);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .case-status {
+            display: inline-block;
+            background-color: var(--gov-red);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.9em;
+            margin-left: 15px;
+        }
+        
+        /* ===== EVIDENCE SECTIONS ===== */
+        .evidence-section {
+            margin: 40px 0;
+            border-left: 4px solid var(--gov-blue);
+            padding-left: 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gov-blue);
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        /* ===== WANTED PROFILE ===== */
+        .wanted-profile {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .mugshot {
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: var(--file-tan);
+            position: relative;
+        }
+        
+        .mugshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .mugshot-id {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            text-align: center;
+        }
+        
+        .profile-details {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .detail-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ddd;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--gov-blue);
+        }
+        
+        .threat-level {
+            background-color: #ffebee;
+            border-left: 5px solid var(--gov-red);
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        /* ===== EVIDENCE FILES ===== */
+        .evidence-files {
+            background-color: var(--file-tan);
+            border: 1px solid #d4c6a5;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .file-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+        
+        .file-card:hover {
+            border-color: var(--gov-blue);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .file-type {
+            color: var(--gov-red);
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 50px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        
+        /* ===== OFFICIAL SEAL ===== */
+        .seal {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .seal img {
+            width: 100px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        <div class="container">
+            INTERNATIONAL CRIMINAL POLICE ORGANIZATION | NCIC CLASSIFICATION: 2025-0611 | CASE STATUS: ACTIVE
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="case-header">
+            <h1 class="case-title">CASE FILE: [FRIEND'S FULL NAME]</h1>
+            <div class="case-id">ID: BDAY-2025-06-11 <span class="case-status">TOP PRIORITY</span></div>
+        </div>
+        
+        <div class="evidence-section">
+            <h2 class="section-title">Suspect Profile</h2>
+            
+            <div class="wanted-profile">
+                <div class="mugshot">
+                    <img src="./assets/images/heath.png" alt="Suspect Photograph">
+                    <div class="mugshot-id">MUGSHOT #BD2025-0611-A</div>
+                </div>
+                
+                <div class="profile-details">
+                    <div class="detail-row">
+                        <div class="detail-label">NAME:</div>
+                        <div>[FRIEND'S FULL NAME]</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">ALIASES:</div>
+                        <div>"Birthday Bandit", "Cake Fugitive"</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">DOB:</div>
+                        <div>June 11, [YEAR]</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">HEIGHT:</div>
+                        <div>Approx. [HEIGHT] cm</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IDENTIFYING MARKS:</div>
+                        <div>Contagious smile, distinctive laugh</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">LAST KNOWN LOCATION:</div>
+                        <div>Near birthday cake establishments</div>
+                    </div>
+                    
+                    <div class="threat-level">
+                        <strong>THREAT ASSESSMENT:</strong> EXTREME - Suspect considered highly dangerous due to excessive likability and known birthday-related activities. Approach with caution.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="evidence-section">
+            <h2 class="section-title">Charges & Violations</h2>
+            
+            <table style="width:100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: var(--gov-blue); color: white;">
+                        <th style="padding: 10px; text-align: left;">CODE</th>
+                        <th style="padding: 10px; text-align: left;">CHARGE</th>
+                        <th style="padding: 10px; text-align: left;">CLASS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">BD-2025-0611-A</td>
+                        <td style="padding: 10px;">Conspiracy to Celebrate Birthday</td>
+                        <td style="padding: 10px;">FELONY</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">BD-2025-0611-B</td>
+                        <td style="padding: 10px;">Possession of Excessive Charm</td>
+                        <td style="padding: 10px;">CLASS A</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">BD-2025-0611-C</td>
+                        <td style="padding: 10px;">Unlawful Smile Distribution</td>
+                        <td style="padding: 10px;">CLASS B</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">BD-2025-0611-D</td>
+                        <td style="padding: 10px;">Wanted for Being Too Awesome</td>
+                        <td style="padding: 10px;">CLASS S</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="evidence-section">
+            <h2 class="section-title">Evidence Repository</h2>
+            
+            <div class="evidence-files">
+                <h3 style="margin-top: 0;">CASE EVIDENCE</h3>
+                <p>All digital evidence pertaining to case BD-2025-0611</p>
+                
+                <div class="file-grid">
+                    <a href="evidence1.html" class="file-card">
+                        <div class="file-type">PHOTOGRAPHIC</div>
+                        <div>Exhibit A-1: Smile Analysis</div>
+                    </a>
+                    <a href="evidence2.html" class="file-card">
+                        <div class="file-type">AUDIO</div>
+                        <div>Exhibit B-3: Laugh Recording</div>
+                    </a>
+                    <a href="evidence3.html" class="file-card">
+                        <div class="file-type">DOCUMENT</div>
+                        <div>Exhibit C-2: Wish List</div>
+                    </a>
+                    <a href="evidence4.html" class="file-card">
+                        <div class="file-type">VIDEO</div>
+                        <div>Exhibit D-4: Party Planning</div>
+                    </a>
+                    <a href="evidence5.html" class="file-card">
+                        <div class="file-type">WITNESS</div>
+                        <div>Exhibit E-1: Friend Testimony</div>
+                    </a>
+                    <a href="evidence6.html" class="file-card">
+                        <div class="file-type">PHYSICAL</div>
+                        <div>Exhibit F-2: Gift Receipts</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="evidence-section">
+            <h2 class="section-title">Case Summary</h2>
+            
+            <p><strong>BACKGROUND:</strong> Subject has been evading proper birthday celebrations for approximately [AGE] years. Known to downplay personal milestones while excelling at celebrating others.</p>
+            
+            <p><strong>MODUS OPERANDI:</strong> Typically attempts to avoid being the center of attention on June 11th each year. May employ diversion tactics including (but not limited to): changing the subject, claiming "it's not a big deal," or attempting to celebrate others instead.</p>
+            
+            <p><strong>WARNING:</strong> Subject is considered extremely dangerous to gloomy moods and bad days. Known to improve the lives of those around them through persistent kindness and humor.</p>
+        </div>
+        
+        <div class="seal">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Interpol_logo.svg/1200px-Interpol_logo.svg.png" alt="Official Seal">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; margin-top: 5px;">
+                CASE BD-2025-0611 | CLASSIFIED: NOFORN
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>INTERPOL Case Tracking System | This document contains law enforcement sensitive information</p>
+            <p>Unauthorized access or distribution prohibited under 18 U.S.C. § 641</p>
+        </div>
+    </div>
+</body>
 </html>

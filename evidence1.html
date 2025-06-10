@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Chronicle - Birthday Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Times New Roman', Times, serif;
+            color: #222;
+            line-height: 1.4;
+            padding: 20px;
+        }
+        
+        .newspaper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            padding: 40px 50px;
+            position: relative;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><rect width="100" height="100" fill="none" stroke="black" stroke-width="1"/></svg>');
+        }
+        
+        .newspaper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 98%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+        
+        /* Masthead */
+        .masthead {
+            border-bottom: 3px double #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .newspaper-name {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        
+        .masthead-info {
+            display: flex;
+            justify-content: space-between;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* Headline */
+        .main-headline {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 84px;
+            line-height: 1.1;
+            margin: 30px 0 10px 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .subhead {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 24px;
+            font-style: italic;
+            margin: 0 0 30px 0;
+            text-align: center;
+            color: #444;
+        }
+        
+        .byline {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            margin: -25px 0 30px 0;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        /* Columns */
+        .column {
+            column-count: 2;
+            column-gap: 30px;
+        }
+        
+        /* Article Styles */
+        .article {
+            break-inside: avoid;
+            margin-bottom: 25px;
+        }
+        
+        .article-headline {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 24px;
+            margin: 0 0 8px 0;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+        
+        .article-subhead {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            font-style: italic;
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+        
+        .article p {
+            margin: 0 0 15px 0;
+            text-align: justify;
+            hyphens: auto;
+            font-size: 17px;
+        }
+        
+        .article p:first-of-type:first-letter {
+            float: left;
+            font-size: 75px;
+            line-height: 60px;
+            padding: 4px 8px 0 0;
+            font-family: Georgia, serif;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            border-left: 1px solid #ddd;
+            padding-left: 20px;
+        }
+        
+        .sidebar-heading {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #000;
+        }
+        
+        .sidebar-item {
+            margin-bottom: 25px;
+        }
+        
+        /* Weather Box */
+        .weather-box {
+            border: 1px solid #000;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Times New Roman', Times, serif;
+            background: #f8f8f8;
+        }
+        
+        .weather-title {
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        /* Classifieds */
+        .classifieds {
+            column-count: 2;
+            column-gap: 30px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 15px;
+            border-top: 2px solid #000;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        .classified-title {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            column-span: all;
+        }
+        
+        .classified-ad {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            padding: 10px;
+            border: 1px dashed #ccc;
+        }
+        
+        .classified-ad h4 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 18px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+        }
+        
+        /* Image Placeholders */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #eaeaea;
+            border: 1px solid #ccc;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        /* Special Birthday Box */
+        .birthday-box {
+            background: #fff9e6;
+            border: 2px dashed #e6b800;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            font-family: Georgia, serif;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid #000;
+            padding-top: 15px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid #ddd;
+                padding-top: 20px;
+            }
+            
+            .column {
+                column-count: 1;
+            }
+            
+            .main-headline {
+                font-size: 48px;
+            }
+            
+            .newspaper-name {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <!-- Masthead -->
+        <div class="masthead">
+            <div class="masthead-info">
+                <span>EST. 1872 • YOUR MOST TRUSTED NEWS SOURCE</span>
+                <span>VOL. CLIII, No. 163</span>
+                <span>PRICE: $1.50</span>
+            </div>
+            <h1 class="newspaper-name">The Daily Chronicle</h1>
+            <div class="masthead-info">
+                <span>NEW YORK, TUESDAY, JUNE 11, 2025</span>
+                <span>www.dailychronicle.com</span>
+                <span>ALL THE NEWS THAT'S FIT TO PRINT</span>
+            </div>
+        </div>
+
+        <!-- Main Headline -->
+        <h2 class="main-headline">CITY CELEBRATES REMARKABLE ANNIVERSARY OF LOCAL RESIDENT</h2>
+        <p class="subhead">Extraordinary individual completes another journey around the sun; Cake consumption expected to reach critical levels</p>
+        <p class="byline">By Arthur Pendleton • Senior Correspondent</p>
+
+        <div class="image-placeholder">[PHOTO: Birthday Person Surrounded by Well-Wishers]</div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="column">
+                <!-- Lead Article -->
+                <div class="article">
+                    <p>In an event that has captured the attention of the entire metropolitan area, local resident <strong>Sarah Johnson</strong> today celebrates the anniversary of her emergence into this world. The occasion, marked by widespread jubilation and an anticipated surge in confetti sales, represents the successful completion of yet another orbit around our solar system's central star.</p>
+                    
+                    <p>Sources close to the celebrant report that preparations have been underway for weeks, with clandestine meetings occurring to coordinate gift procurement and cake acquisition. "It's been challenging to maintain operational secrecy," confided one associate who requested anonymity. "She has an uncanny ability to detect wrapping paper rustling at 50 paces."</p>
+                    
+                    <p>The day's festivities are expected to include ritualistic candle extinguishing, ceremonial gift unwrapping, and the traditional consumption of sugary baked goods. Authorities have issued a temporary suspension of dietary restrictions within a three-block radius of the celebration epicenter.</p>
+                    
+                    <p>When reached for comment, the honoree expressed cautious optimism about the proceedings: "I'm hopeful about the cake-to-icing ratio this year. Last year's imbalance caused significant diplomatic tension among attendees."</p>
+                    
+                    <div class="birthday-box">
+                        <p>PUBLIC NOTICE: All citizens are encouraged to participate in this momentous occasion by extending felicitations and refraining from mentioning specific numerical milestones.</p>
+                    </div>
+                    
+                    <p>City officials have announced plans to illuminate municipal buildings in the celebrant's favorite colors this evening, though concerns have been raised about potential chromatic conflicts with local sports teams. "We're walking a fine line between civic celebration and inciting riot," admitted the mayor's office spokesperson.</p>
+                </div>
+
+                <!-- Secondary Article -->
+                <div class="article">
+                    <h3 class="article-headline">Scientific Community Baffled by Disappearing Socks</h3>
+                    <h4 class="article-subhead">Researchers propose alternate dimension theory to explain laundry anomalies</h4>
+                    
+                    <p>After decades of speculation, the global scientific community has formally acknowledged what households have long suspected: socks disappear during the washing process at alarming rates. A joint study by CERN and leading appliance manufacturers has concluded that standard laundry procedures create "micro-tears in the fabric of reality."</p>
+                    
+                    <p>"Our findings suggest that approximately 17% of all socks enter a parallel dimension during the spin cycle," explained Dr. Evelyn Reed, lead researcher on the project. "We've detected faint distress signals from missing argyles in the quantum foam."</p>
+                    
+                    <div class="image-placeholder">[ILLUSTRATION: Sock entering portal in washing machine]</div>
+                    
+                    <p>The research team has developed prototype "sock anchors" that show promise in preventing dimensional displacement. Early adopters report a 73% reduction in sock loss, though some complain of "unusual gravitational effects" near their laundry rooms.</p>
+                    
+                    <p>Consumer advocacy groups warn that the anchors may void appliance warranties and potentially create localized time distortions. "It's a trade-off between sock retention and temporal stability," cautioned one industry analyst.</p>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3 class="sidebar-heading">Other Headlines</h3>
+                
+                <div class="sidebar-item">
+                    <h4 class="article-headline">Local Man Discovers Perfect Pizza-To-Crust Ratio</h4>
+                    <p>After 7 years of research, self-taught gastrophysicist claims breakthrough that "changes everything."</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <h4 class="article-headline">Study Confirms Mondays Objectively Worse</h4>
+                    <p>Groundbreaking research reveals 98.7% of humans experience existential dread between 6:00-9:00 AM Mondays.</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <h4 class="article-headline">Cat Runs for City Council</h4>
+                    <p>Campaign promises include mandatory nap times, universal tuna access. Early polling shows surprising support.</p>
+                    <div class="image-placeholder">[PHOTO: Candidate Mittens at press conference]</div>
+                </div>
+                
+                <div class="weather-box">
+                    <div class="weather-title">TODAY'S WEATHER</div>
+                    <p><strong>Morning:</strong> Partly confused with scattered clarity</p>
+                    <p><strong>Afternoon:</strong> Increasing celebrations, 100% chance of cake</p>
+                    <p><strong>Evening:</strong> Festive with possible champagne showers</p>
+                    <p><strong>Temperature:</strong> Rising to comfortable levels of merriment</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <h4 class="article-headline">Coffee Found to Contain Caffeine</h4>
+                    <p>Shocking revelation upends everything scientists thought they knew about morning beverage.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classifieds Section -->
+        <div class="classifieds">
+            <div class="classified-title">CLASSIFIED ADVERTISEMENTS</div>
+            
+            <div class="classified-ad">
+                <h4>FOR SALE</h4>
+                <p>Slightly used crystal ball. Predicts with 50% accuracy (which is better than most economists). $100 OBO. Call after 7pm - it needs its beauty sleep.</p>
+            </div>
+            
+            <div class="classified-ad">
+                <h4>LOST</h4>
+                <p>My motivation. Last seen Friday afternoon. If found, please do not return until Monday morning.</p>
+            </div>
+            
+            <div class="classified-ad">
+                <h4>SERVICES</h4>
+                <p>Professional apology writer. Specializing in "I told you so" situations and forgotten anniversaries. Results guaranteed or double your regret back.</p>
+            </div>
+            
+            <div class="classified-ad">
+                <h4>HELP WANTED</h4>
+                <p>Seeking individual to explain smartphones to grandparents. Hazard pay included for repeated "What's an app?" explanations. Must have infinite patience.</p>
+            </div>
+            
+            <div class="classified-ad">
+                <h4>PERSONAL</h4>
+                <p>To the person who stole my copy of "How to Find Happiness": I hope you're happy now.</p>
+            </div>
+            
+            <div class="classified-ad">
+                <h4>NOTICE</h4>
+                <p>The end is not nigh. Repeat: The end is not nigh. Please resume normal activities. - Management</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 The Daily Chronicle | All Rights Reserved | Printed with pride and possibly some recycled regrets</p>
+        </div>
+    </div>
+</body>
+</html>
