@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parrot Parade</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #e6ffe6;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+    }
+    .parrot {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      transition: left 0.4s ease, top 0.4s ease;
+      cursor: grab;
+      touch-action: none;
+    }
+    .parrot.dragging {
+      cursor: grabbing;
+      transition: none !important;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Chirping Sound -->
+  <audio autoplay loop>
+    <source src="./assets/sounds/parrot-chirp.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const numParrots = 42;
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+
+    function randomMovement(parrot) {
+      if (parrot.classList.contains("dragging")) return;
+
+      const deltaX = (Math.random() - 0.5) * 100;
+      const deltaY = (Math.random() - 0.5) * 100;
+      let left = parseFloat(parrot.style.left);
+      let top = parseFloat(parrot.style.top);
+
+      left += deltaX;
+      top += deltaY;
+
+      // Clamp to screen
+      left = Math.max(0, Math.min(screenW - 60, left));
+      top = Math.max(0, Math.min(screenH - 60, top));
+
+      parrot.style.left = left + 'px';
+      parrot.style.top = top + 'px';
+    }
+
+    function enableDrag(el) {
+      let offsetX, offsetY, isDragging = false;
+
+      el.addEventListener('pointerdown', e => {
+        isDragging = true;
+        el.classList.add('dragging');
+        offsetX = e.clientX - parseFloat(el.style.left);
+        offsetY = e.clientY - parseFloat(el.style.top);
+        el.setPointerCapture(e.pointerId);
+      });
+
+      el.addEventListener('pointermove', e => {
+        if (!isDragging) return;
+        let left = e.clientX - offsetX;
+        let top = e.clientY - offsetY;
+
+        left = Math.max(0, Math.min(screenW - 60, left));
+        top = Math.max(0, Math.min(screenH - 60, top));
+
+        el.style.left = left + 'px';
+        el.style.top = top + 'px';
+      });
+
+      el.addEventListener('pointerup', () => {
+        isDragging = false;
+        el.classList.remove('dragging');
+      });
+    }
+
+    for (let i = 1; i <= numParrots; i++) {
+      const img = document.createElement("img");
+      img.src = `./assets/images/parrots/parrot${i}.jpg`;
+      img.classList.add("parrot");
+      img.style.left = Math.random() * (screenW - 60) + "px";
+      img.style.top = Math.random() * (screenH - 60) + "px";
+      document.body.appendChild(img);
+      enableDrag(img);
+
+      setInterval(() => randomMovement(img), 500 + Math.random() * 1000);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulip Wonderland</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            position: relative;
+        }
+
+        .tulip {
+            position: absolute;
+            width: 60px;
+            height: 120px;
+            animation: sway 5s infinite alternate ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        .tulip .stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 6px;
+            height: 80px;
+            background: linear-gradient(to right, #7cba5a, #8bc34a);
+            transform: translateX(-50%);
+        }
+
+        .tulip .flower {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            width: 50px;
+            height: 60px;
+            background: currentColor;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform: translateX(-50%);
+            box-shadow: inset -5px -10px 10px rgba(0,0,0,0.1);
+        }
+
+        .tulip .leaf {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            width: 30px;
+            height: 50px;
+            background: linear-gradient(to right, #7cba5a, #8bc34a);
+            border-radius: 50% 0 50% 50%;
+            transform: translateX(-50%) rotate(20deg);
+            transform-origin: bottom center;
+        }
+
+        .tulip .leaf:nth-child(2) {
+            transform: translateX(-50%) rotate(-20deg);
+            left: calc(50% - 10px);
+        }
+
+        @keyframes sway {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        h1 {
+            color: #e91e63;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Tulip Wonderland</h1>
+        <p>A field of digital tulips just for you!</p>
+    </div>
+
+    <script>
+        const colors = ['#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800'];
+        const body = document.body;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        // Create tulips
+        for (let i = 0; i < 150; i++) {
+            const tulip = document.createElement('div');
+            tulip.className = 'tulip';
+            
+            // Random position
+            const left = Math.random() * windowWidth;
+            const bottom = Math.random() * windowHeight;
+            
+            // Random color
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random animation delay
+            const delay = Math.random() * 5;
+            
+            tulip.style.left = `${left}px`;
+            tulip.style.bottom = `${-20}px`;
+            tulip.style.color = color;
+            tulip.style.animationDelay = `${delay}s`;
+            
+            // Create stem
+            const stem = document.createElement('div');
+            stem.className = 'stem';
+            
+            // Create flower
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Create leaves
+            const leaf1 = document.createElement('div');
+            leaf1.className = 'leaf';
+            
+            const leaf2 = document.createElement('div');
+            leaf2.className = 'leaf';
+            
+            tulip.appendChild(stem);
+            tulip.appendChild(flower);
+            tulip.appendChild(leaf1);
+            tulip.appendChild(leaf2);
+            
+            body.appendChild(tulip);
+            
+            // Animate tulips growing
+            setTimeout(() => {
+                tulip.style.bottom = `${bottom}px`;
+            }, i * 50);
+        }
+    </script>
+</body>
+</html>
