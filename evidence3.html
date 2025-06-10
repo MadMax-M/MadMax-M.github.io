@@ -37,7 +37,7 @@
   </audio>
 
   <script>
-    const numParrots = 42;
+    const numParrots = 37;
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
 
@@ -91,7 +91,7 @@
 
     for (let i = 1; i <= numParrots; i++) {
       const img = document.createElement("img");
-      img.src = `./assets/images/parrots/parrot${i}.jpg`;
+      img.src = `./assets/images/parrot-png/parrot${i}.png`;
       img.classList.add("parrot");
       img.style.left = Math.random() * (screenW - 60) + "px";
       img.style.top = Math.random() * (screenH - 60) + "px";
